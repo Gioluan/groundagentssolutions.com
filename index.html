@@ -1,0 +1,1085 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ground Agents Solutions S.L. — Sports & Travel Technology</title>
+  <meta name="description" content="Ground Agents Solutions S.L. — Group travel specialists and sports technology builders. Based in Spain since 2005.">
+  <meta property="og:title" content="Ground Agents Solutions S.L.">
+  <meta property="og:description" content="Group travel experts & sports technology builders. Based in Spain since 2005.">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>G</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg: #050810;
+      --surface: #0a1025;
+      --surface-2: #111833;
+      --border: #1a2444;
+      --text: #f1f5f9;
+      --text-muted: #8896b8;
+      --accent: #3b82f6;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* ── ANIMATED BACKGROUND ── */
+    .bg-mesh {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      z-index: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .bg-mesh .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(120px);
+      opacity: 0.3;
+      animation: float 20s ease-in-out infinite;
+    }
+
+    .bg-mesh .orb-1 {
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, #3b82f6 0%, transparent 70%);
+      top: -10%; left: -10%;
+      animation-delay: 0s;
+    }
+
+    .bg-mesh .orb-2 {
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, #8b5cf6 0%, transparent 70%);
+      top: 30%; right: -15%;
+      animation-delay: -7s;
+      animation-duration: 25s;
+    }
+
+    .bg-mesh .orb-3 {
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, #f97316 0%, transparent 70%);
+      bottom: 10%; left: 20%;
+      animation-delay: -14s;
+      animation-duration: 22s;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      25% { transform: translate(80px, -60px) scale(1.1); }
+      50% { transform: translate(-40px, 80px) scale(0.9); }
+      75% { transform: translate(60px, 40px) scale(1.05); }
+    }
+
+    /* Grid overlay */
+    .bg-grid {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      z-index: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(59, 130, 246, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(59, 130, 246, 0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+      mask-image: radial-gradient(ellipse 80% 60% at 50% 30%, black 30%, transparent 100%);
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 1rem 2rem;
+      background: rgba(5, 8, 16, 0.7);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+
+    .nav-logo span {
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--text); }
+
+    /* ── CONTENT WRAPPER ── */
+    .content { position: relative; z-index: 1; }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 8rem 2rem 4rem;
+      position: relative;
+    }
+
+    /* Floating particles */
+    .particles {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .particle {
+      position: absolute;
+      width: 3px; height: 3px;
+      background: rgba(59, 130, 246, 0.5);
+      border-radius: 50%;
+      animation: rise linear infinite;
+    }
+
+    @keyframes rise {
+      0% { transform: translateY(100vh) scale(0); opacity: 0; }
+      10% { opacity: 1; }
+      90% { opacity: 1; }
+      100% { transform: translateY(-10vh) scale(1); opacity: 0; }
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.4rem 1.1rem;
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-bottom: 2.5rem;
+      background: rgba(10, 16, 37, 0.6);
+      backdrop-filter: blur(10px);
+    }
+
+    .hero-badge .dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: #10b981;
+      animation: pulse-dot 2s infinite;
+    }
+
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.8rem, 7vw, 5.5rem);
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      margin-bottom: 1.5rem;
+      max-width: 800px;
+    }
+
+    h1 .gradient {
+      background: linear-gradient(135deg, #3b82f6, #a855f7, #f97316);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      background-size: 200% 200%;
+      animation: gradient-shift 6s ease-in-out infinite;
+    }
+
+    @keyframes gradient-shift {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+
+    .hero-sub {
+      font-size: 1.2rem;
+      color: var(--text-muted);
+      max-width: 540px;
+      margin-bottom: 3rem;
+      font-weight: 300;
+    }
+
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.85rem 2rem;
+      background: linear-gradient(135deg, #3b82f6, #6366f1);
+      color: white;
+      text-decoration: none;
+      border-radius: 10px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: all 0.3s;
+      box-shadow: 0 0 30px rgba(59, 130, 246, 0.3);
+    }
+
+    .hero-cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 50px rgba(59, 130, 246, 0.5);
+    }
+
+    .hero-cta svg { width: 16px; height: 16px; }
+
+    /* Scroll indicator */
+    .scroll-hint {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--text-muted);
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      animation: bob 2s ease-in-out infinite;
+    }
+
+    .scroll-hint .line {
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(to bottom, var(--text-muted), transparent);
+    }
+
+    @keyframes bob {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(8px); }
+    }
+
+    /* ── PHOTO MARQUEE ── */
+    .marquee-section {
+      padding: 2rem 0;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .marquee-section::before,
+    .marquee-section::after {
+      content: '';
+      position: absolute;
+      top: 0; bottom: 0;
+      width: 150px;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .marquee-section::before {
+      left: 0;
+      background: linear-gradient(to right, var(--bg), transparent);
+    }
+
+    .marquee-section::after {
+      right: 0;
+      background: linear-gradient(to left, var(--bg), transparent);
+    }
+
+    .marquee-track {
+      display: flex;
+      gap: 1.5rem;
+      animation: marquee 35s linear infinite;
+      width: max-content;
+    }
+
+    .marquee-track:hover { animation-play-state: paused; }
+
+    @keyframes marquee {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    .marquee-img {
+      width: 320px;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      flex-shrink: 0;
+      transition: transform 0.3s, border-color 0.3s;
+    }
+
+    .marquee-img:hover {
+      transform: scale(1.03);
+      border-color: rgba(139, 92, 246, 0.4);
+    }
+
+    /* ── SECTION ── */
+    section {
+      padding: 7rem 2rem;
+      max-width: 1150px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      background: linear-gradient(135deg, #3b82f6, #a855f7);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 0.75rem;
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 1rem;
+    }
+
+    .section-desc {
+      color: var(--text-muted);
+      max-width: 560px;
+      font-size: 1.05rem;
+      font-weight: 300;
+      margin-bottom: 3.5rem;
+    }
+
+    /* ── PRODUCTS GRID ── */
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+
+    .product-card {
+      background: rgba(10, 16, 37, 0.6);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 2rem;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+      overflow: hidden;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .product-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+    }
+
+    .product-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 20px;
+      opacity: 0;
+      transition: opacity 0.4s;
+      pointer-events: none;
+    }
+
+    .product-card:hover {
+      border-color: rgba(255,255,255,0.12);
+      transform: translateY(-6px);
+      box-shadow: 0 30px 80px rgba(0,0,0,0.4);
+    }
+
+    .product-card:hover::after { opacity: 1; }
+
+    .product-card[data-product="mycantera"]::before { background: linear-gradient(90deg, #10b981, #34d399); }
+    .product-card[data-product="mycantera"]::after { background: radial-gradient(circle at top left, rgba(16, 185, 129, 0.06), transparent 60%); }
+
+    .product-card[data-product="odisea"]::before { background: linear-gradient(90deg, #f97316, #fb923c); }
+    .product-card[data-product="odisea"]::after { background: radial-gradient(circle at top left, rgba(249, 115, 22, 0.06), transparent 60%); }
+
+    .product-card[data-product="odiseaclub"]::before { background: linear-gradient(90deg, #1B2A4A, #f97316); }
+    .product-card[data-product="odiseaclub"]::after { background: radial-gradient(circle at top left, rgba(249, 115, 22, 0.04), transparent 60%); }
+
+    .product-card[data-product="iwasntthere"]::before { background: linear-gradient(90deg, #ff2d55, #ff6b81); }
+    .product-card[data-product="iwasntthere"]::after { background: radial-gradient(circle at top left, rgba(255, 45, 85, 0.06), transparent 60%); }
+
+    .product-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .product-logo {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      object-fit: cover;
+      border: 1px solid var(--border);
+    }
+
+    .product-logo-iwt {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      background: #0a0a0a;
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.7rem;
+    }
+
+    .product-logo-oc {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #1B2A4A, #2A3F6B);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: #f97316;
+    }
+
+    .product-name {
+      font-size: 1.3rem;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    .product-tagline {
+      font-size: 0.78rem;
+      font-weight: 500;
+      margin-top: 0.15rem;
+    }
+
+    .product-card[data-product="mycantera"] .product-tagline { color: #10b981; }
+    .product-card[data-product="odisea"] .product-tagline { color: #f97316; }
+    .product-card[data-product="odiseaclub"] .product-tagline { color: #f97316; }
+    .product-card[data-product="iwasntthere"] .product-tagline { color: #ff2d55; }
+
+    .product-desc {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+      flex-grow: 1;
+      margin-bottom: 1.5rem;
+    }
+
+    .product-screenshot {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      margin-bottom: 1.25rem;
+      transition: transform 0.4s;
+    }
+
+    .product-card:hover .product-screenshot { transform: scale(1.02); }
+
+    .product-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      transition: all 0.3s;
+    }
+
+    .product-card:hover .product-link { color: var(--text); }
+
+    .product-link svg { width: 14px; height: 14px; transition: transform 0.3s; }
+    .product-card:hover .product-link svg { transform: translateX(4px); }
+
+    /* ── DIVIDER ── */
+    .gradient-divider {
+      height: 1px;
+      max-width: 1150px;
+      margin: 0 auto;
+      background: linear-gradient(90deg, transparent, #3b82f6, #a855f7, #f97316, transparent);
+      opacity: 0.3;
+    }
+
+    /* ── ABOUT ── */
+    .about-section {
+      position: relative;
+    }
+
+    .about-section::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(139, 92, 246, 0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+
+    .about-text {
+      color: var(--text-muted);
+      font-size: 1.05rem;
+      font-weight: 300;
+      line-height: 1.9;
+    }
+
+    .about-text strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .about-highlight {
+      margin-top: 1.5rem;
+      padding: 1.25rem 1.5rem;
+      border-left: 3px solid;
+      border-image: linear-gradient(to bottom, #3b82f6, #a855f7) 1;
+      background: rgba(59, 130, 246, 0.05);
+      border-radius: 0 10px 10px 0;
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      font-style: italic;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+    }
+
+    .stat-card {
+      background: rgba(10, 16, 37, 0.6);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.75rem;
+      text-align: center;
+      transition: all 0.3s;
+    }
+
+    .stat-card:hover {
+      border-color: rgba(139, 92, 246, 0.3);
+      transform: translateY(-2px);
+    }
+
+    .stat-number {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #3b82f6, #a855f7);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 0.3rem;
+    }
+
+    .stat-label {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    /* ── CONTACT / FOOTER ── */
+    .contact-section {
+      text-align: center;
+      padding: 7rem 2rem 5rem;
+      position: relative;
+    }
+
+    .contact-section::before {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 400px;
+      background: linear-gradient(to top, rgba(59, 130, 246, 0.05), transparent);
+      pointer-events: none;
+    }
+
+    .contact-section .section-desc {
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .contact-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, #3b82f6, #a855f7, #f97316);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      background-size: 200% 200%;
+      animation: gradient-shift 6s ease-in-out infinite;
+    }
+
+    .contact-row {
+      display: flex;
+      justify-content: center;
+      gap: 1.25rem;
+      flex-wrap: wrap;
+    }
+
+    .contact-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.85rem 1.75rem;
+      background: rgba(10, 16, 37, 0.6);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: all 0.3s;
+    }
+
+    .contact-pill:hover {
+      border-color: rgba(139, 92, 246, 0.4);
+      color: var(--text);
+      box-shadow: 0 0 30px rgba(139, 92, 246, 0.15);
+      transform: translateY(-2px);
+    }
+
+    .contact-pill svg { width: 16px; height: 16px; opacity: 0.6; }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2.5rem 2rem;
+    }
+
+    .footer-inner {
+      max-width: 1150px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .footer-legal {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .footer-products {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .footer-products a {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-products a:hover { color: var(--text); }
+
+    .footer-location {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .footer-location svg { width: 14px; height: 14px; opacity: 0.5; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .products-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+      section { padding: 5rem 1.5rem; }
+      .hero { padding: 7rem 1.5rem 3rem; }
+      .footer-inner { flex-direction: column; text-align: center; }
+      .footer-products { flex-wrap: wrap; justify-content: center; }
+      .scroll-hint { display: none; }
+    }
+
+    /* ── ANIMATIONS ── */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Staggered children */
+    .stagger > .fade-up:nth-child(1) { transition-delay: 0s; }
+    .stagger > .fade-up:nth-child(2) { transition-delay: 0.1s; }
+    .stagger > .fade-up:nth-child(3) { transition-delay: 0.2s; }
+    .stagger > .fade-up:nth-child(4) { transition-delay: 0.3s; }
+
+    /* ── TILT EFFECT ── */
+    .tilt-card {
+      transform-style: preserve-3d;
+      perspective: 1000px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ANIMATED BACKGROUND -->
+  <div class="bg-mesh">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
+  <div class="bg-grid"></div>
+
+  <div class="content">
+
+    <!-- NAV -->
+    <nav>
+      <div class="nav-logo">Ground Agents<span>.</span></div>
+      <ul class="nav-links">
+        <li><a href="#products">Products</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="particles" id="particles"></div>
+      <div class="hero-badge">
+        <span class="dot"></span>
+        Based in Spain
+      </div>
+      <h1 class="fade-up"><span class="gradient">Group travel</span> experts & sports technology builders</h1>
+      <p class="hero-sub fade-up">Ground Agents Solutions S.L. — specialists in group travel since 2005 and builders of the digital products that power sports clubs, tours, and unforgettable experiences.</p>
+      <a href="#products" class="hero-cta fade-up">
+        See our products
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg>
+      </a>
+      <div class="scroll-hint">
+        Scroll
+        <div class="line"></div>
+      </div>
+    </section>
+
+    <!-- PHOTO MARQUEE -->
+    <div class="marquee-section">
+      <div class="marquee-track">
+        <img src="assets/mycantera-hero.jpg" alt="Youth soccer training at FC Barcelona" class="marquee-img">
+        <img src="assets/odiseaclub-hero-2.jpg" alt="Veterans at Bernabeu Stadium" class="marquee-img">
+        <img src="assets/odisea-tours-hero.jpg" alt="Youth girls celebrating" class="marquee-img">
+        <img src="assets/coaching.jpg" alt="Professional coaching session" class="marquee-img">
+        <img src="assets/odiseaclub-hero.jpg" alt="Group at Camp Nou Barcelona" class="marquee-img">
+        <img src="assets/mycantera-hero-2.jpg" alt="Soccer tour experience" class="marquee-img">
+        <img src="assets/happy-group.jpg" alt="Happy tour group" class="marquee-img">
+        <img src="assets/match-action.jpg" alt="Match action shot" class="marquee-img">
+        <!-- Duplicate for seamless loop -->
+        <img src="assets/mycantera-hero.jpg" alt="Youth soccer training at FC Barcelona" class="marquee-img">
+        <img src="assets/odiseaclub-hero-2.jpg" alt="Veterans at Bernabeu Stadium" class="marquee-img">
+        <img src="assets/odisea-tours-hero.jpg" alt="Youth girls celebrating" class="marquee-img">
+        <img src="assets/coaching.jpg" alt="Professional coaching session" class="marquee-img">
+        <img src="assets/odiseaclub-hero.jpg" alt="Group at Camp Nou Barcelona" class="marquee-img">
+        <img src="assets/mycantera-hero-2.jpg" alt="Soccer tour experience" class="marquee-img">
+        <img src="assets/happy-group.jpg" alt="Happy tour group" class="marquee-img">
+        <img src="assets/match-action.jpg" alt="Match action shot" class="marquee-img">
+      </div>
+    </div>
+
+    <!-- PRODUCTS -->
+    <section id="products">
+      <p class="section-label fade-up">Our Products</p>
+      <h2 class="section-title fade-up">Four products, one mission</h2>
+      <p class="section-desc fade-up">Each product serves a different audience, but they all share the same belief: technology should make real-world experiences better.</p>
+
+      <div class="products-grid stagger">
+
+        <a href="https://mycantera.com" target="_blank" rel="noopener" class="product-card tilt-card fade-up" data-product="mycantera">
+          <div class="product-header">
+            <img src="assets/mycantera-logo.png" alt="MyCantera" class="product-logo">
+            <div>
+              <div class="product-name">MyCantera</div>
+              <div class="product-tagline">Club Management for Youth Soccer</div>
+            </div>
+          </div>
+          <img src="assets/mycantera-hero.jpg" alt="MyCantera — youth teams training at FC Barcelona" class="product-screenshot">
+          <p class="product-desc">AI-powered platform for youth soccer clubs. Training sessions, live match scoring, attendance tracking, and tour planning — all in one place.</p>
+          <span class="product-link">
+            mycantera.com
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>
+          </span>
+        </a>
+
+        <a href="https://odisea-tours.com" target="_blank" rel="noopener" class="product-card tilt-card fade-up" data-product="odisea">
+          <div class="product-header">
+            <img src="assets/odisea-tours-logo.png" alt="Odisea Tours" class="product-logo">
+            <div>
+              <div class="product-name">Odisea Tours</div>
+              <div class="product-tagline">Specialist in Group Travel Since 2005</div>
+            </div>
+          </div>
+          <img src="assets/odisea-tours-hero.jpg" alt="Odisea Tours — youth girls at FC Barcelona museum" class="product-screenshot">
+          <p class="product-desc">Specialist in group travel since 2005. End-to-end logistics for sports teams visiting Spain — La Liga academy training, friendly matches, and cultural experiences.</p>
+          <span class="product-link">
+            odisea-tours.com
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>
+          </span>
+        </a>
+
+        <a href="https://odiseaclub.com" target="_blank" rel="noopener" class="product-card tilt-card fade-up" data-product="odiseaclub">
+          <div class="product-header">
+            <div class="product-logo-oc">OC</div>
+            <div>
+              <div class="product-name">OdiseaClub</div>
+              <div class="product-tagline">Your Squad. Your Tours. Your Memories.</div>
+            </div>
+          </div>
+          <img src="assets/odiseaclub-hero.jpg" alt="OdiseaClub — veterans group at Camp Nou" class="product-screenshot">
+          <p class="product-desc">The social travel app for soccer clubs. Plan tours together, track matches, share photos, and keep every trip's story in one place.</p>
+          <span class="product-link">
+            odiseaclub.com
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>
+          </span>
+        </a>
+
+        <a href="https://iwasntthere.com" target="_blank" rel="noopener" class="product-card tilt-card fade-up" data-product="iwasntthere">
+          <div class="product-header">
+            <div class="product-logo-iwt">🤫</div>
+            <div>
+              <div class="product-name">I Wasn't There</div>
+              <div class="product-tagline">The App That Deletes Everything</div>
+            </div>
+          </div>
+          <div style="width:100%;height:180px;border-radius:10px;border:1px solid var(--border);margin-bottom:1.25rem;background:linear-gradient(135deg,#0a0a0a 0%,#1a0a15 50%,#0a0a0a 100%);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;">
+            <div style="position:absolute;inset:0;background:repeating-linear-gradient(45deg,transparent,transparent 20px,rgba(255,45,85,0.03) 20px,rgba(255,45,85,0.03) 40px);"></div>
+            <div style="text-align:center;position:relative;z-index:1;">
+              <div style="font-size:2.5rem;margin-bottom:0.35rem;">🤫</div>
+              <div style="font-size:0.75rem;color:#ff2d55;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;">What happens here, stays here</div>
+            </div>
+          </div>
+          <p class="product-desc">Ephemeral photo sharing for bachelor parties and stag dos. Share the moment, then let it disappear. Built for deniability.</p>
+          <span class="product-link">
+            iwasntthere.com
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>
+          </span>
+        </a>
+
+      </div>
+    </section>
+
+    <div class="gradient-divider"></div>
+
+    <!-- ABOUT -->
+    <section id="about" class="about-section">
+      <p class="section-label fade-up">About</p>
+      <h2 class="section-title fade-up">Travel experts turned tech builders</h2>
+
+      <div class="about-grid">
+        <div class="fade-up">
+          <div class="about-text">
+            <p><strong>Ground Agents Solutions S.L.</strong> is a group travel and technology company based in Spain. Since 2005 we've been the on-the-ground experts for international sports teams visiting the country — organising training camps, friendly matches, and cultural tours from start to finish.</p>
+            <br>
+            <p>That hands-on experience led us to build the digital products we wished existed. Today we operate across group travel, sports club management, and consumer apps — every product born from a real problem we've lived firsthand.</p>
+          </div>
+          <div class="about-highlight">
+            "20 years on the ground organising tours taught us exactly what tools were missing — so we built them."
+          </div>
+        </div>
+
+        <div class="stats-grid fade-up">
+          <div class="stat-card">
+            <div class="stat-number">20+</div>
+            <div class="stat-label">Years in sports tourism</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">4</div>
+            <div class="stat-label">Live products</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">3</div>
+            <div class="stat-label">Countries served</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">B2B+C</div>
+            <div class="stat-label">Dual market focus</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="gradient-divider"></div>
+
+    <!-- CONTACT -->
+    <section id="contact" class="contact-section">
+      <p class="section-label fade-up">Get in Touch</p>
+      <h2 class="contact-title fade-up">Let's talk</h2>
+      <p class="section-desc fade-up">Whether you're interested in our products, exploring a partnership, or just want to say hello.</p>
+
+      <div class="contact-row fade-up">
+        <a href="mailto:info@groundagentssolutions.com" class="contact-pill">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 7l-10 6L2 7"/></svg>
+          info@groundagentssolutions.com
+        </a>
+        <a href="tel:+34670059797" class="contact-pill">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+          +34 670 05 97 97
+        </a>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+      <div class="footer-inner">
+        <div class="footer-legal">&copy; 2025 Ground Agents Solutions S.L.</div>
+        <div class="footer-products">
+          <a href="https://mycantera.com" target="_blank">MyCantera</a>
+          <a href="https://odisea-tours.com" target="_blank">Odisea Tours</a>
+          <a href="https://odiseaclub.com" target="_blank">OdiseaClub</a>
+          <a href="https://iwasntthere.com" target="_blank">I Wasn't There</a>
+        </div>
+        <div class="footer-location">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Spain
+        </div>
+      </div>
+    </footer>
+
+  </div><!-- /content -->
+
+  <!-- SCRIPTS -->
+  <script>
+    // Scroll reveal
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+    // Floating particles
+    const particlesEl = document.getElementById('particles');
+    for (let i = 0; i < 30; i++) {
+      const p = document.createElement('div');
+      p.className = 'particle';
+      p.style.left = Math.random() * 100 + '%';
+      p.style.animationDuration = (8 + Math.random() * 12) + 's';
+      p.style.animationDelay = (Math.random() * 10) + 's';
+      p.style.width = p.style.height = (2 + Math.random() * 3) + 'px';
+      const colors = ['rgba(59,130,246,0.4)', 'rgba(139,92,246,0.4)', 'rgba(249,115,22,0.3)'];
+      p.style.background = colors[Math.floor(Math.random() * colors.length)];
+      particlesEl.appendChild(p);
+    }
+
+    // 3D tilt on product cards
+    document.querySelectorAll('.tilt-card').forEach(card => {
+      card.addEventListener('mousemove', e => {
+        const rect = card.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width - 0.5;
+        const y = (e.clientY - rect.top) / rect.height - 0.5;
+        card.style.transform = `translateY(-6px) rotateY(${x * 6}deg) rotateX(${-y * 6}deg)`;
+      });
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = 'translateY(0) rotateY(0) rotateX(0)';
+        card.style.transition = 'transform 0.5s cubic-bezier(0.16, 1, 0.3, 1)';
+      });
+      card.addEventListener('mouseenter', () => {
+        card.style.transition = 'transform 0.1s';
+      });
+    });
+
+    // Parallax on scroll for orbs
+    window.addEventListener('scroll', () => {
+      const scrollY = window.scrollY;
+      document.querySelectorAll('.orb').forEach((orb, i) => {
+        const speed = 0.03 + i * 0.015;
+        orb.style.transform = `translateY(${scrollY * speed}px)`;
+      });
+    }, { passive: true });
+  </script>
+
+  <!-- JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Ground Agents Solutions S.L.",
+    "description": "Group travel specialists and sports technology builders based in Spain since 2005.",
+    "url": "https://groundagentssolutions.com",
+    "foundingDate": "2005",
+    "address": { "@type": "PostalAddress", "addressCountry": "ES" },
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "telephone": "+34-670-05-97-97",
+      "email": "info@groundagentssolutions.com",
+      "contactType": "general"
+    },
+    "owns": [
+      { "@type": "WebApplication", "name": "MyCantera", "url": "https://mycantera.com" },
+      { "@type": "WebApplication", "name": "OdiseaClub", "url": "https://odiseaclub.com" },
+      { "@type": "WebApplication", "name": "I Wasn't There", "url": "https://iwasntthere.com" },
+      { "@type": "WebSite", "name": "Odisea Tours", "url": "https://odisea-tours.com" }
+    ]
+  }
+  </script>
+
+</body>
+</html>
