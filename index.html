@@ -737,6 +737,32 @@
 
     .footer-location svg { width: 14px; height: 14px; opacity: 0.5; }
 
+    .footer-press {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      text-align: center;
+      padding-top: 1.5rem;
+      margin-top: 1.5rem;
+      border-top: 1px solid var(--border);
+    }
+    .footer-press a {
+      color: var(--text-muted);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .footer-press a:hover {
+      color: var(--text);
+      border-bottom-color: currentColor;
+    }
+    .footer-press .label {
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      font-size: 0.7rem;
+      opacity: 0.7;
+      margin-right: 0.5rem;
+    }
+
     /* ── RESPONSIVE ── */
     @media (max-width: 900px) {
       .products-grid { grid-template-columns: 1fr; }
@@ -996,6 +1022,10 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
           Spain
         </div>
+      </div>
+      <div class="footer-press">
+        <span class="label">Press &amp; partnerships</span>
+        <a href="mailto:juan@odisea-tours.com">juan@odisea-tours.com</a>
       </div>
     </footer>
 
