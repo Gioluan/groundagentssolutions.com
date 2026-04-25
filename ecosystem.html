@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Ecosystem — Ground Agents Solutions</title>
+  <meta name="description" content="Internal architecture overview.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>G</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg: #050810;
+      --surface: #0a1025;
+      --surface-2: #111833;
+      --border: #1a2444;
+      --text: #f1f5f9;
+      --text-muted: #8896b8;
+      --accent: #3b82f6;
+      --accent-2: #60a5fa;
+      --danger: #ef4444;
+      --ok: #22c55e;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+    }
+
+    /* ── PASSWORD GATE ── */
+    .gate {
+      position: fixed; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      background: radial-gradient(ellipse at top, #0a1025 0%, #050810 70%);
+      z-index: 100;
+      padding: 24px;
+    }
+    .gate-card {
+      width: 100%; max-width: 420px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 36px 32px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+    }
+    .gate-card h1 {
+      font-size: 22px; font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .gate-card p {
+      font-size: 14px; color: var(--text-muted);
+      margin-bottom: 24px;
+    }
+    .gate-input {
+      width: 100%;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 14px 16px;
+      border-radius: 10px;
+      font-size: 15px;
+      font-family: inherit;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .gate-input:focus { border-color: var(--accent); }
+    .gate-btn {
+      width: 100%;
+      margin-top: 12px;
+      background: var(--accent);
+      color: white;
+      border: none;
+      padding: 14px;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .gate-btn:hover { background: var(--accent-2); }
+    .gate-error {
+      margin-top: 12px;
+      font-size: 13px;
+      color: var(--danger);
+      min-height: 18px;
+    }
+    .gate-foot {
+      margin-top: 18px;
+      font-size: 12px;
+      color: var(--text-muted);
+      text-align: center;
+    }
+
+    /* ── MAIN ── */
+    main { display: none; }
+    main.visible { display: block; }
+
+    header.bar {
+      position: sticky; top: 0;
+      background: rgba(5, 8, 16, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 14px 24px;
+      display: flex; align-items: center; justify-content: space-between;
+      z-index: 10;
+    }
+    header.bar .brand {
+      font-weight: 700; font-size: 15px;
+      letter-spacing: 0.02em;
+    }
+    header.bar .brand span { color: var(--text-muted); font-weight: 400; }
+    header.bar .actions { display: flex; gap: 8px; }
+    header.bar button {
+      background: var(--surface-2);
+      color: var(--text);
+      border: 1px solid var(--border);
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-family: inherit;
+      cursor: pointer;
+      transition: border-color 0.15s, background 0.15s;
+    }
+    header.bar button:hover { border-color: var(--accent); background: var(--surface); }
+
+    .wrap {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 32px 24px 80px;
+    }
+
+    h2.page-title {
+      font-size: 28px; font-weight: 700;
+      margin-bottom: 8px;
+    }
+    p.page-sub {
+      color: var(--text-muted);
+      font-size: 14px;
+      margin-bottom: 28px;
+    }
+
+    .diagram-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+      overflow: auto;
+    }
+    .diagram-card .mermaid {
+      font-family: inherit;
+      min-width: 1100px;
+    }
+
+    .legend {
+      margin-top: 24px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px;
+    }
+    .legend-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 16px;
+      display: flex; align-items: center; gap: 12px;
+    }
+    .swatch {
+      width: 16px; height: 16px; border-radius: 4px;
+      flex-shrink: 0;
+      border: 1px solid rgba(0,0,0,0.2);
+    }
+    .legend-item .label {
+      font-size: 13px;
+    }
+    .legend-item .label strong { display: block; margin-bottom: 2px; }
+    .legend-item .label span { color: var(--text-muted); font-size: 12px; }
+
+    .notes {
+      margin-top: 32px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px 28px;
+    }
+    .notes h3 {
+      font-size: 16px; font-weight: 600;
+      margin-bottom: 12px;
+    }
+    .notes ul {
+      list-style: none;
+      display: grid; gap: 10px;
+    }
+    .notes li {
+      padding-left: 20px; position: relative;
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+    .notes li::before {
+      content: ""; position: absolute; left: 0; top: 10px;
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--accent);
+    }
+    .notes li strong { color: var(--text); }
+
+    @media (max-width: 640px) {
+      .wrap { padding: 20px 16px 60px; }
+      h2.page-title { font-size: 22px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── PASSWORD GATE ── -->
+  <div class="gate" id="gate">
+    <form class="gate-card" id="gateForm" autocomplete="off">
+      <h1>Ground Agents Ecosystem</h1>
+      <p>Internal architecture overview. Enter the access code to continue.</p>
+      <input
+        type="password"
+        class="gate-input"
+        id="gateInput"
+        placeholder="Access code"
+        autofocus
+        autocomplete="current-password"
+      />
+      <button class="gate-btn" type="submit">Unlock</button>
+      <div class="gate-error" id="gateError"></div>
+      <div class="gate-foot">groundagentssolutions.com</div>
+    </form>
+  </div>
+
+  <!-- ── MAIN ── -->
+  <main id="main">
+    <header class="bar">
+      <div class="brand">Ground Agents Solutions <span>· Ecosystem</span></div>
+      <div class="actions">
+        <button id="printBtn">Print / PDF</button>
+        <button id="lockBtn">Lock</button>
+      </div>
+    </header>
+
+    <div class="wrap">
+      <h2 class="page-title">Product & infrastructure ecosystem</h2>
+      <p class="page-sub">Last updated 2026-04-26 · Confidential</p>
+
+      <div class="diagram-card">
+        <pre class="mermaid">
+flowchart TB
+  subgraph PARENT["Ground Agents Solutions S.L. (parent)"]
+    GAS["groundagentssolutions.com<br/>Static marketing site<br/>(GitHub Pages / Vercel)<br/>Holding company since 2005"]
+  end
+
+  subgraph USERS["End users"]
+    direction LR
+    U_MC["Club directors / coaches /<br/>parents / players"]
+    U_OT["Tour organizers, schools,<br/>youth coaches"]
+    U_IWT["Bachelor / hen party<br/>groups"]
+    U_OPS["Juan + Aitor + Raul<br/>(internal ops)"]
+  end
+
+  subgraph MC["mycantera.com — soccer club SaaS"]
+    direction TB
+    MC_Next["Next.js 16 on Vercel<br/>PWA · Tailwind v4 · TS"]
+    MC_Pages["Public: /, /club/[slug],<br/>/live/[matchId], /player/[id],<br/>/for/[slug] proposals"]
+    MC_App["Auth-gated app:<br/>squads, matches, training,<br/>calendar, AI reports"]
+    MC_Sales["/sales unified CRM<br/>MyCantera + partner outreach"]
+    MC_News["learn.mycantera.com<br/>Coach AI newsletter"]
+    MC_Auth["Firebase Auth"]
+    MC_FS["Firestore<br/>mycantera-2beb5"]
+    MC_Storage["Firebase Storage"]
+    MC_AI["Anthropic Claude API"]
+    MC_Stripe["Stripe<br/>Free / Coach $29 / Club $99"]
+    MC_Resend["Resend<br/>(newsletter key)"]
+
+    MC_Next --> MC_Pages
+    MC_Next --> MC_App
+    MC_Next --> MC_Sales
+    MC_App --> MC_Auth
+    MC_App --> MC_FS
+    MC_App --> MC_Storage
+    MC_App --> MC_AI
+    MC_App --> MC_Stripe
+    MC_News --> MC_Resend
+    MC_Sales --> MC_FS
+  end
+
+  subgraph OT["odisea-tours.com — tour operator marketing"]
+    direction TB
+    OT_Next["Next.js 16 on Vercel<br/>30+ pages · blog · RSS"]
+    OT_Pages["Tours, audiences, destinations,<br/>journal, /for/[slug] proposals"]
+    OT_GA["GA4 G-902SEZT8Z1"]
+    OT_DNS["DNS on Cloudflare"]
+    OT_Mail["MX → Hostalia<br/>juan@odisea-tours.com"]
+    OT_Resend["Resend sender<br/>juan@odisea-tours.com"]
+    OT_Scraper["Lead scrapers<br/>(local Python tools)"]
+
+    OT_Next --> OT_Pages
+    OT_Next --> OT_GA
+    OT_DNS --> OT_Mail
+  end
+
+  subgraph OCRM["Odisea CRM — operations cockpit (active)"]
+    direction TB
+    OCRM_App["Vanilla JS SPA<br/>repo: Gioluan/OdiseaTours<br/>(index + app + templates)"]
+    OCRM_Proposal["Proposal builder<br/>+ photos assets"]
+    OCRM_Templates["Email templates"]
+    OCRM_Seed["seed.js<br/>(initial leads import)"]
+    OCRM_FB["Firebase<br/>Auth + Firestore<br/>own project"]
+    OCRM_Shortcut["Desktop launcher<br/>Odisea Tours CRM.lnk"]
+
+    OCRM_Shortcut --> OCRM_App
+    OCRM_App --> OCRM_Templates
+    OCRM_App --> OCRM_FB
+    OCRM_Proposal --> OCRM_FB
+    OCRM_Seed --> OCRM_FB
+  end
+
+  subgraph IWT["iwasntthere.com — ephemeral party app"]
+    direction TB
+    IWT_Next["Next.js 16 on Vercel<br/>PWA · Tailwind v4"]
+    IWT_SEO["SEO surface:<br/>3 hubs · 25 city pages<br/>3 comparisons · 10 posts"]
+    IWT_Trip["Trip app:<br/>photos, chat, countdown,<br/>auto-delete on expiry"]
+    IWT_Auth["Firebase Auth"]
+    IWT_FS["Firestore<br/>(own project)"]
+    IWT_Storage["Firebase Storage<br/>ephemeral photos"]
+    IWT_Stripe["Stripe<br/>Party Mode<br/>£7.99 / €8.99 / $9.99"]
+    IWT_Mail["Cloudflare email routing<br/>partnerships@iwasntthere.com"]
+    IWT_GSC["Google Search Console"]
+
+    IWT_Next --> IWT_SEO
+    IWT_Next --> IWT_Trip
+    IWT_Trip --> IWT_Auth
+    IWT_Trip --> IWT_FS
+    IWT_Trip --> IWT_Storage
+    IWT_Trip --> IWT_Stripe
+    IWT_SEO --> IWT_GSC
+  end
+
+  %% parent showcases all products
+  GAS -. "showcases" .-> MC
+  GAS -. "showcases" .-> OT
+  GAS -. "showcases" .-> IWT
+
+  %% Users to apps
+  U_MC --> MC_Next
+  U_OT --> OT_Next
+  U_IWT --> IWT_Next
+  U_OPS --> OCRM_App
+  U_OPS --> MC_Sales
+
+  %% Cross-product links
+  MC_Pages -. "Tours module CTA" .-> OT_Next
+  OT_Pages -. "proposals stored in" .-> MC_FS
+  OT_Resend -. "send-email API" .-> MC_Sales
+  OT_Scraper -. "JSON import" .-> MC_Sales
+  OCRM_Proposal -. "share link" .-> U_OT
+
+  classDef parent fill:#1e293b,stroke:#3b82f6,color:#f1f5f9,stroke-width:2px
+  classDef shared fill:#fde68a,stroke:#b45309,color:#111
+  classDef external fill:#dbeafe,stroke:#1d4ed8,color:#111
+  classDef odisea fill:#dcfce7,stroke:#15803d,color:#111
+  class GAS parent
+  class MC_Sales,MC_FS shared
+  class MC_AI,MC_Stripe,MC_Resend,IWT_Stripe,OT_Resend,OT_GA,IWT_GSC,OT_DNS,OT_Mail,IWT_Mail external
+  class OCRM_App,OCRM_Proposal,OCRM_Templates,OCRM_Seed,OCRM_FB,OCRM_Shortcut odisea
+        </pre>
+      </div>
+
+      <div class="legend">
+        <div class="legend-item">
+          <div class="swatch" style="background:#1e293b;border-color:#3b82f6"></div>
+          <div class="label">
+            <strong>Parent company</strong>
+            <span>Holding entity, marketing only</span>
+          </div>
+        </div>
+        <div class="legend-item">
+          <div class="swatch" style="background:#fde68a"></div>
+          <div class="label">
+            <strong>Shared infra</strong>
+            <span>Used by MyCantera and Odisea</span>
+          </div>
+        </div>
+        <div class="legend-item">
+          <div class="swatch" style="background:#dcfce7"></div>
+          <div class="label">
+            <strong>Odisea CRM</strong>
+            <span>Standalone vanilla JS, active</span>
+          </div>
+        </div>
+        <div class="legend-item">
+          <div class="swatch" style="background:#dbeafe"></div>
+          <div class="label">
+            <strong>External services</strong>
+            <span>Stripe, Resend, GA4, DNS, etc.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="notes">
+        <h3>Things worth knowing</h3>
+        <ul>
+          <li><strong>MyCantera and Odisea share a backend.</strong> The unified CRM at <code>mycantera.com/sales</code> writes to the same Firestore (<code>mycantera-2beb5</code>) for both products via the <code>sales_prospects</code>, <code>proposals</code> and <code>odisea_proposals</code> collections.</li>
+          <li><strong>Odisea CRM is the day-to-day cockpit.</strong> Standalone vanilla JS app on its own Firebase project, launched from a desktop shortcut. Proposal builder is separate from the marketing site.</li>
+          <li><strong>iwasntthere.com is fully isolated.</strong> Own Firebase project, own Stripe, own DNS path (Cloudflare email routing → Gmail). No shared infra with the other products.</li>
+          <li><strong>Resend is split.</strong> Odisea sends from <code>juan@odisea-tours.com</code> (verified). MyCantera sending is gated behind Resend Pro; the newsletter has its own key on <code>learn.mycantera.com</code>.</li>
+          <li><strong>DNS quirk.</strong> odisea-tours.com DNS lives on Cloudflare even though MX points to Hostalia. Hostalia's DNS panel is a ghost zone.</li>
+          <li><strong>This page is hidden.</strong> noindex header, password gated, not linked from any public page.</li>
+        </ul>
+      </div>
+    </div>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+  <script>
+    // Default password: groundagents2026
+    // To change: compute SHA-256 of new password and replace PASSWORD_HASH below.
+    // Quick way (Node):  node -e "console.log(require('crypto').createHash('sha256').update('YOUR_PASS').digest('hex'))"
+    const PASSWORD_HASH = '58d3ad23ed216beabef6aa10e60edb01ab36f91c24b3e6df9f4186bae10d5c3e';
+    const SESSION_KEY = 'gas_eco_unlocked_v1';
+
+    const gate = document.getElementById('gate');
+    const main = document.getElementById('main');
+    const form = document.getElementById('gateForm');
+    const input = document.getElementById('gateInput');
+    const errorEl = document.getElementById('gateError');
+
+    async function sha256(text) {
+      const buf = new TextEncoder().encode(text);
+      const hash = await crypto.subtle.digest('SHA-256', buf);
+      return Array.from(new Uint8Array(hash))
+        .map(b => b.toString(16).padStart(2, '0'))
+        .join('');
+    }
+
+    function reveal() {
+      gate.style.display = 'none';
+      main.classList.add('visible');
+      mermaid.initialize({
+        startOnLoad: true,
+        theme: 'default',
+        flowchart: { htmlLabels: true, useMaxWidth: false }
+      });
+    }
+
+    function lock() {
+      sessionStorage.removeItem(SESSION_KEY);
+      location.reload();
+    }
+
+    if (sessionStorage.getItem(SESSION_KEY) === '1') {
+      reveal();
+    }
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      errorEl.textContent = '';
+      const candidate = input.value.trim();
+      if (!candidate) return;
+      const hash = await sha256(candidate);
+      if (hash === PASSWORD_HASH) {
+        sessionStorage.setItem(SESSION_KEY, '1');
+        reveal();
+      } else {
+        errorEl.textContent = 'Wrong access code.';
+        input.value = '';
+        input.focus();
+      }
+    });
+
+    document.getElementById('printBtn').addEventListener('click', () => window.print());
+    document.getElementById('lockBtn').addEventListener('click', lock);
+  </script>
+
+</body>
+</html>
