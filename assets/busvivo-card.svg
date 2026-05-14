@@ -1,97 +1,76 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 360" preserveAspectRatio="xMidYMid slice" role="img" aria-label="BusVivo fleet tracking for Spanish bus operators">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 360" preserveAspectRatio="xMidYMid slice" role="img" aria-label="BusVivo. Gana más, gasta menos, en cada autobús.">
   <defs>
-    <pattern id="grid" width="24" height="24" patternUnits="userSpaceOnUse">
-      <path d="M24 0H0V24" fill="none" stroke="#0a1f3d" stroke-opacity="0.06" stroke-width="1"/>
+    <!-- Paper grain like .paper-grain on busvivo.com -->
+    <pattern id="grain" width="38" height="46" patternUnits="userSpaceOnUse">
+      <circle cx="8" cy="9" r="0.9" fill="#0a1f3d" fill-opacity="0.06"/>
+      <circle cx="26" cy="28" r="0.8" fill="#0a1f3d" fill-opacity="0.05"/>
+      <circle cx="15" cy="38" r="0.9" fill="#0a1f3d" fill-opacity="0.06"/>
     </pattern>
-    <pattern id="diag" width="14" height="14" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
-      <rect width="7" height="14" fill="#0a1f3d"/>
-    </pattern>
+    <style>
+      .display { font-family: 'Bebas Neue', 'Arial Narrow', 'Helvetica Inserat', Impact, sans-serif; font-weight: 400; }
+      .body    { font-family: 'Space Grotesk', system-ui, sans-serif; }
+      .mono    { font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace; }
+    </style>
   </defs>
 
   <!-- Paper background -->
   <rect width="600" height="360" fill="#f3ede0"/>
-  <rect width="600" height="360" fill="url(#grid)"/>
+  <rect width="600" height="360" fill="url(#grain)"/>
 
-  <!-- Top signal-yellow bar -->
-  <rect x="0" y="0" width="600" height="44" fill="#ffd400"/>
-  <rect x="0" y="44" width="600" height="3" fill="#0a1f3d"/>
-
-  <!-- Tiny route stops on top bar -->
-  <g fill="#0a1f3d">
-    <circle cx="40" cy="22" r="5"/>
-    <rect x="50" y="20.5" width="120" height="3"/>
-    <circle cx="175" cy="22" r="5"/>
-    <rect x="185" y="20.5" width="80" height="3"/>
-    <circle cx="270" cy="22" r="5"/>
-    <rect x="280" y="20.5" width="200" height="3"/>
-    <circle cx="485" cy="22" r="5"/>
-    <rect x="495" y="20.5" width="50" height="3"/>
-    <circle cx="552" cy="22" r="5"/>
+  <!-- Top notice strip (ink navy with signal-yellow mono text) -->
+  <g>
+    <rect x="0" y="0" width="600" height="26" fill="#0a1f3d"/>
+    <circle cx="20" cy="13" r="2.6" fill="#ffd400"/>
+    <text x="30" y="17" class="mono" font-size="9" fill="#ffd400" letter-spacing="2.5" font-weight="700">SISTEMA EN LÍNEA · MADRID · 2026</text>
+    <text x="580" y="17" class="mono" font-size="9" fill="#ffd400" fill-opacity="0.7" letter-spacing="2.5" text-anchor="end" font-weight="700">25 PLAZAS · SOCIOS FUNDADORES</text>
   </g>
 
-  <!-- LINEA monogram in top right -->
-  <g font-family="ui-monospace, 'JetBrains Mono', 'SF Mono', Menlo, monospace" font-size="11" fill="#0a1f3d" letter-spacing="2">
-    <text x="560" y="76" text-anchor="end" font-weight="700">LÍNEA 01 — ES</text>
+  <!-- BUSVIVO logo tile (yellow box, navy ring + BUSVIVO wordmark) -->
+  <g transform="translate(36,52)">
+    <rect x="0" y="0" width="186" height="42" fill="#ffd400" stroke="#0a1f3d" stroke-width="2.5"/>
+    <!-- Ringed dot (matches .Logo on busvivo.com) -->
+    <circle cx="20" cy="21" r="6" fill="#ffd400" stroke="#0a1f3d" stroke-width="2"/>
+    <circle cx="20" cy="21" r="3" fill="#0a1f3d"/>
+    <!-- Wordmark -->
+    <text x="36" y="33" class="display" font-size="30" fill="#0a1f3d" letter-spacing="1.2">BUSVIVO</text>
   </g>
 
-  <!-- Diagonal stripe block (transit caution mark) -->
-  <rect x="40" y="92" width="44" height="44" fill="url(#diag)"/>
+  <!-- Mono tag "FLOTA / EN VIVO" beside logo -->
+  <text x="234" y="80" class="mono" font-size="8.5" fill="#0a1f3d" letter-spacing="3" font-weight="700">FLOTA / EN VIVO</text>
 
-  <!-- BUSVIVO wordmark -->
-  <g font-family="'Arial Black', 'Helvetica Neue', Impact, sans-serif" fill="#0a1f3d">
-    <text x="100" y="135" font-size="72" font-weight="900" letter-spacing="-2">BUSVIVO</text>
+  <!-- EN VIVO red badge + caption -->
+  <g transform="translate(36,116)">
+    <rect x="0" y="0" width="60" height="18" fill="#e3000f"/>
+    <text x="30" y="13" class="mono" font-size="9" fill="#ffffff" letter-spacing="2.5" text-anchor="middle" font-weight="700">EN VIVO</text>
+    <text x="72" y="13" class="mono" font-size="9" fill="#0a1f3d" fill-opacity="0.65" letter-spacing="2.5" font-weight="700">GPS DESDE EL MÓVIL · SIN HARDWARE</text>
   </g>
 
-  <!-- Underline accent -->
-  <rect x="100" y="148" width="180" height="6" fill="#ffd400"/>
-  <rect x="284" y="148" width="40" height="6" fill="#d92e2e"/>
-
-  <!-- Tagline -->
-  <g font-family="'Space Grotesk', 'Inter', system-ui, sans-serif" fill="#0a1f3d">
-    <text x="100" y="186" font-size="18" font-weight="600">Fleet OS for Spanish autocar operators.</text>
-    <text x="100" y="208" font-size="14" font-weight="500" opacity="0.7">GPS · EU 561 · drivers · costs.</text>
+  <!-- Display headline: GANA MÁS. / GASTA MENOS. (yellow highlight) / EN CADA AUTOBÚS. -->
+  <g class="display" fill="#0a1f3d">
+    <text x="36" y="194" font-size="56" letter-spacing="-1">GANA MÁS.</text>
+    <!-- Yellow signal highlight block behind GASTA MENOS. -->
+    <rect x="32" y="208" width="320" height="48" fill="#ffd400"/>
+    <text x="36" y="246" font-size="56" letter-spacing="-1">GASTA MENOS.</text>
+    <text x="36" y="296" font-size="34" letter-spacing="-0.5" fill="#1a3055">EN CADA AUTOBÚS.</text>
   </g>
 
-  <!-- Bus silhouette (bottom) -->
-  <g transform="translate(80,242)">
-    <!-- Body -->
-    <rect x="0" y="6" width="360" height="68" rx="10" fill="#0a1f3d"/>
-    <!-- Roof line -->
-    <rect x="0" y="0" width="360" height="10" rx="4" fill="#0a1f3d"/>
-    <!-- Front windshield -->
-    <path d="M340 18 L356 28 L356 56 L340 64 Z" fill="#ffd400"/>
-    <!-- Windows -->
-    <g fill="#f3ede0">
-      <rect x="14" y="20" width="40" height="22" rx="2"/>
-      <rect x="62" y="20" width="40" height="22" rx="2"/>
-      <rect x="110" y="20" width="40" height="22" rx="2"/>
-      <rect x="158" y="20" width="40" height="22" rx="2"/>
-      <rect x="206" y="20" width="40" height="22" rx="2"/>
-      <rect x="254" y="20" width="40" height="22" rx="2"/>
-      <rect x="302" y="20" width="32" height="22" rx="2"/>
-    </g>
-    <!-- Side stripe -->
-    <rect x="0" y="48" width="356" height="4" fill="#ffd400"/>
-    <!-- Door -->
-    <rect x="40" y="54" width="22" height="20" fill="#f3ede0"/>
-    <!-- Headlight -->
-    <circle cx="350" cy="58" r="3" fill="#ffd400"/>
-    <!-- Wheels -->
-    <g>
-      <circle cx="56" cy="78" r="14" fill="#0a1f3d"/>
-      <circle cx="56" cy="78" r="6" fill="#f3ede0"/>
-      <circle cx="300" cy="78" r="14" fill="#0a1f3d"/>
-      <circle cx="300" cy="78" r="6" fill="#f3ede0"/>
-    </g>
-    <!-- Route number -->
-    <g font-family="'Arial Black', sans-serif" fill="#ffd400">
-      <text x="180" y="38" text-anchor="middle" font-size="18" font-weight="900" letter-spacing="2">BUSVIVO</text>
-    </g>
-  </g>
+  <!-- Bottom stats strip on ink-navy (mimics busvivo.com stats row) -->
+  <g transform="translate(0,316)">
+    <rect x="0" y="0" width="600" height="44" fill="#0a1f3d"/>
+    <!-- divider lines -->
+    <rect x="200" y="10" width="1" height="24" fill="#ffd400" fill-opacity="0.35"/>
+    <rect x="400" y="10" width="1" height="24" fill="#ffd400" fill-opacity="0.35"/>
 
-  <!-- Bottom metadata strip -->
-  <g font-family="ui-monospace, 'JetBrains Mono', Menlo, monospace" font-size="10" fill="#0a1f3d" letter-spacing="1.5">
-    <text x="40" y="346" font-weight="700">BUSVIVO.COM</text>
-    <text x="560" y="346" text-anchor="end" opacity="0.6">MADE IN SPAIN · 2026</text>
+    <!-- Stat 1 -->
+    <text x="100" y="22" class="display" font-size="22" fill="#ffd400" text-anchor="middle">€3.000+</text>
+    <text x="100" y="35" class="mono" font-size="7" fill="#f3ede0" fill-opacity="0.7" letter-spacing="2" text-anchor="middle" font-weight="700">AHORRO / BUS / AÑO</text>
+
+    <!-- Stat 2 -->
+    <text x="300" y="22" class="display" font-size="22" fill="#ffd400" text-anchor="middle">5 MIN</text>
+    <text x="300" y="35" class="mono" font-size="7" fill="#f3ede0" fill-opacity="0.7" letter-spacing="2" text-anchor="middle" font-weight="700">INSTALACIÓN · SIN TÉCNICO</text>
+
+    <!-- Stat 3 -->
+    <text x="500" y="22" class="display" font-size="22" fill="#ffd400" text-anchor="middle">€0</text>
+    <text x="500" y="35" class="mono" font-size="7" fill="#f3ede0" fill-opacity="0.7" letter-spacing="2" text-anchor="middle" font-weight="700">HARDWARE · NUNCA</text>
   </g>
 </svg>
