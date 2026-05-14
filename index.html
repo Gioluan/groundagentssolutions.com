@@ -431,8 +431,8 @@
     .product-card[data-product="odisea"]::before { background: linear-gradient(90deg, #f97316, #fb923c); }
     .product-card[data-product="odisea"]::after { background: radial-gradient(circle at top left, rgba(249, 115, 22, 0.06), transparent 60%); }
 
-    .product-card[data-product="odiseaclub"]::before { background: linear-gradient(90deg, #1B2A4A, #f97316); }
-    .product-card[data-product="odiseaclub"]::after { background: radial-gradient(circle at top left, rgba(249, 115, 22, 0.04), transparent 60%); }
+    .product-card[data-product="busvivo"]::before { background: linear-gradient(90deg, #0a1f3d, #ffd400); }
+    .product-card[data-product="busvivo"]::after { background: radial-gradient(circle at top left, rgba(255, 212, 0, 0.06), transparent 60%); }
 
     .product-card[data-product="iwasntthere"]::before { background: linear-gradient(90deg, #ff2d55, #ff6b81); }
     .product-card[data-product="iwasntthere"]::after { background: radial-gradient(circle at top left, rgba(255, 45, 85, 0.06), transparent 60%); }
@@ -464,18 +464,30 @@
       font-size: 1.7rem;
     }
 
-    .product-logo-oc {
+    .product-logo-bv {
       width: 52px;
       height: 52px;
       border-radius: 14px;
-      background: linear-gradient(135deg, #1B2A4A, #2A3F6B);
+      background: #0a1f3d;
       border: 1px solid var(--border);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.1rem;
-      font-weight: 800;
-      color: #f97316;
+      font-family: 'Arial Black', 'Helvetica Neue', Impact, sans-serif;
+      font-size: 0.95rem;
+      font-weight: 900;
+      color: #ffd400;
+      letter-spacing: -0.5px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .product-logo-bv::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 6px;
+      background: #ffd400;
     }
 
     .product-name {
@@ -492,7 +504,7 @@
 
     .product-card[data-product="mycantera"] .product-tagline { color: #10b981; }
     .product-card[data-product="odisea"] .product-tagline { color: #f97316; }
-    .product-card[data-product="odiseaclub"] .product-tagline { color: #f97316; }
+    .product-card[data-product="busvivo"] .product-tagline { color: #ffd400; }
     .product-card[data-product="iwasntthere"] .product-tagline { color: #ff2d55; }
 
     .product-desc {
@@ -861,19 +873,19 @@
     <div class="marquee-section">
       <div class="marquee-track">
         <img src="assets/mycantera-hero.jpg" alt="Youth soccer training at FC Barcelona" class="marquee-img">
-        <img src="assets/odiseaclub-hero-2.jpg" alt="Veterans at Bernabeu Stadium" class="marquee-img">
+        <img src="assets/mycantera-hero-3.jpg" alt="Youth soccer team huddle" class="marquee-img">
         <img src="assets/odisea-tours-hero.jpg" alt="Youth girls celebrating" class="marquee-img">
         <img src="assets/coaching.jpg" alt="Professional coaching session" class="marquee-img">
-        <img src="assets/odiseaclub-hero.jpg" alt="Group at Camp Nou Barcelona" class="marquee-img">
+        <img src="assets/busvivo-card.svg" alt="BusVivo fleet tracking brand poster" class="marquee-img">
         <img src="assets/mycantera-hero-2.jpg" alt="Soccer tour experience" class="marquee-img">
         <img src="assets/happy-group.jpg" alt="Happy tour group" class="marquee-img">
         <img src="assets/match-action.jpg" alt="Match action shot" class="marquee-img">
         <!-- Duplicate for seamless loop -->
         <img src="assets/mycantera-hero.jpg" alt="Youth soccer training at FC Barcelona" class="marquee-img">
-        <img src="assets/odiseaclub-hero-2.jpg" alt="Veterans at Bernabeu Stadium" class="marquee-img">
+        <img src="assets/mycantera-hero-3.jpg" alt="Youth soccer team huddle" class="marquee-img">
         <img src="assets/odisea-tours-hero.jpg" alt="Youth girls celebrating" class="marquee-img">
         <img src="assets/coaching.jpg" alt="Professional coaching session" class="marquee-img">
-        <img src="assets/odiseaclub-hero.jpg" alt="Group at Camp Nou Barcelona" class="marquee-img">
+        <img src="assets/busvivo-card.svg" alt="BusVivo fleet tracking brand poster" class="marquee-img">
         <img src="assets/mycantera-hero-2.jpg" alt="Soccer tour experience" class="marquee-img">
         <img src="assets/happy-group.jpg" alt="Happy tour group" class="marquee-img">
         <img src="assets/match-action.jpg" alt="Match action shot" class="marquee-img">
@@ -920,18 +932,18 @@
           </span>
         </a>
 
-        <a href="https://odiseaclub.vercel.app" target="_blank" rel="noopener" class="product-card tilt-card fade-up" data-product="odiseaclub">
+        <a href="https://busvivo.com" target="_blank" rel="noopener" class="product-card tilt-card fade-up" data-product="busvivo">
           <div class="product-header">
-            <div class="product-logo-oc">OC</div>
+            <div class="product-logo-bv">BV</div>
             <div>
-              <div class="product-name">OdiseaClub</div>
-              <div class="product-tagline">Your Squad. Your Tours. Your Memories.</div>
+              <div class="product-name">BusVivo</div>
+              <div class="product-tagline">Fleet OS for Spanish Bus Operators</div>
             </div>
           </div>
-          <img src="assets/odiseaclub-hero.jpg" alt="OdiseaClub — veterans group at Camp Nou" class="product-screenshot">
-          <p class="product-desc">The social travel app for soccer clubs. Plan tours together, track matches, share photos, and keep every trip's story in one place.</p>
+          <img src="assets/busvivo-card.svg" alt="BusVivo transit-poster brand card" class="product-screenshot">
+          <p class="product-desc">Operating system for Spanish autocar SMEs. Live GPS tracking, EU 561 driver-hours compliance, fuel and cost analytics, and a paired-driver mobile app.</p>
           <span class="product-link">
-            odiseaclub.com
+            busvivo.com
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>
           </span>
         </a>
@@ -1028,7 +1040,7 @@
         <div class="footer-products">
           <a href="https://mycantera.com" target="_blank">MyCantera</a>
           <a href="https://odisea-tours.com" target="_blank">Odisea Tours</a>
-          <a href="https://odiseaclub.vercel.app" target="_blank">OdiseaClub</a>
+          <a href="https://busvivo.com" target="_blank">BusVivo</a>
           <a href="https://iwasntthere.com" target="_blank">I Wasn't There</a>
         </div>
         <div class="footer-location">
@@ -1117,7 +1129,7 @@
     },
     "owns": [
       { "@type": "WebApplication", "name": "MyCantera", "url": "https://mycantera.com" },
-      { "@type": "WebApplication", "name": "OdiseaClub", "url": "https://odiseaclub.vercel.app" },
+      { "@type": "WebApplication", "name": "BusVivo", "url": "https://busvivo.com" },
       { "@type": "WebApplication", "name": "I Wasn't There", "url": "https://iwasntthere.com" },
       { "@type": "WebSite", "name": "Odisea Tours", "url": "https://odisea-tours.com" }
     ]

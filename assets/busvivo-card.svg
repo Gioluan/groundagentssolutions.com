@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 360" preserveAspectRatio="xMidYMid slice" role="img" aria-label="BusVivo fleet tracking for Spanish bus operators">
+  <defs>
+    <pattern id="grid" width="24" height="24" patternUnits="userSpaceOnUse">
+      <path d="M24 0H0V24" fill="none" stroke="#0a1f3d" stroke-opacity="0.06" stroke-width="1"/>
+    </pattern>
+    <pattern id="diag" width="14" height="14" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <rect width="7" height="14" fill="#0a1f3d"/>
+    </pattern>
+  </defs>
+
+  <!-- Paper background -->
+  <rect width="600" height="360" fill="#f3ede0"/>
+  <rect width="600" height="360" fill="url(#grid)"/>
+
+  <!-- Top signal-yellow bar -->
+  <rect x="0" y="0" width="600" height="44" fill="#ffd400"/>
+  <rect x="0" y="44" width="600" height="3" fill="#0a1f3d"/>
+
+  <!-- Tiny route stops on top bar -->
+  <g fill="#0a1f3d">
+    <circle cx="40" cy="22" r="5"/>
+    <rect x="50" y="20.5" width="120" height="3"/>
+    <circle cx="175" cy="22" r="5"/>
+    <rect x="185" y="20.5" width="80" height="3"/>
+    <circle cx="270" cy="22" r="5"/>
+    <rect x="280" y="20.5" width="200" height="3"/>
+    <circle cx="485" cy="22" r="5"/>
+    <rect x="495" y="20.5" width="50" height="3"/>
+    <circle cx="552" cy="22" r="5"/>
+  </g>
+
+  <!-- LINEA monogram in top right -->
+  <g font-family="ui-monospace, 'JetBrains Mono', 'SF Mono', Menlo, monospace" font-size="11" fill="#0a1f3d" letter-spacing="2">
+    <text x="560" y="76" text-anchor="end" font-weight="700">LÍNEA 01 — ES</text>
+  </g>
+
+  <!-- Diagonal stripe block (transit caution mark) -->
+  <rect x="40" y="92" width="44" height="44" fill="url(#diag)"/>
+
+  <!-- BUSVIVO wordmark -->
+  <g font-family="'Arial Black', 'Helvetica Neue', Impact, sans-serif" fill="#0a1f3d">
+    <text x="100" y="135" font-size="72" font-weight="900" letter-spacing="-2">BUSVIVO</text>
+  </g>
+
+  <!-- Underline accent -->
+  <rect x="100" y="148" width="180" height="6" fill="#ffd400"/>
+  <rect x="284" y="148" width="40" height="6" fill="#d92e2e"/>
+
+  <!-- Tagline -->
+  <g font-family="'Space Grotesk', 'Inter', system-ui, sans-serif" fill="#0a1f3d">
+    <text x="100" y="186" font-size="18" font-weight="600">Fleet OS for Spanish autocar operators.</text>
+    <text x="100" y="208" font-size="14" font-weight="500" opacity="0.7">GPS · EU 561 · drivers · costs.</text>
+  </g>
+
+  <!-- Bus silhouette (bottom) -->
+  <g transform="translate(80,242)">
+    <!-- Body -->
+    <rect x="0" y="6" width="360" height="68" rx="10" fill="#0a1f3d"/>
+    <!-- Roof line -->
+    <rect x="0" y="0" width="360" height="10" rx="4" fill="#0a1f3d"/>
+    <!-- Front windshield -->
+    <path d="M340 18 L356 28 L356 56 L340 64 Z" fill="#ffd400"/>
+    <!-- Windows -->
+    <g fill="#f3ede0">
+      <rect x="14" y="20" width="40" height="22" rx="2"/>
+      <rect x="62" y="20" width="40" height="22" rx="2"/>
+      <rect x="110" y="20" width="40" height="22" rx="2"/>
+      <rect x="158" y="20" width="40" height="22" rx="2"/>
+      <rect x="206" y="20" width="40" height="22" rx="2"/>
+      <rect x="254" y="20" width="40" height="22" rx="2"/>
+      <rect x="302" y="20" width="32" height="22" rx="2"/>
+    </g>
+    <!-- Side stripe -->
+    <rect x="0" y="48" width="356" height="4" fill="#ffd400"/>
+    <!-- Door -->
+    <rect x="40" y="54" width="22" height="20" fill="#f3ede0"/>
+    <!-- Headlight -->
+    <circle cx="350" cy="58" r="3" fill="#ffd400"/>
+    <!-- Wheels -->
+    <g>
+      <circle cx="56" cy="78" r="14" fill="#0a1f3d"/>
+      <circle cx="56" cy="78" r="6" fill="#f3ede0"/>
+      <circle cx="300" cy="78" r="14" fill="#0a1f3d"/>
+      <circle cx="300" cy="78" r="6" fill="#f3ede0"/>
+    </g>
+    <!-- Route number -->
+    <g font-family="'Arial Black', sans-serif" fill="#ffd400">
+      <text x="180" y="38" text-anchor="middle" font-size="18" font-weight="900" letter-spacing="2">BUSVIVO</text>
+    </g>
+  </g>
+
+  <!-- Bottom metadata strip -->
+  <g font-family="ui-monospace, 'JetBrains Mono', Menlo, monospace" font-size="10" fill="#0a1f3d" letter-spacing="1.5">
+    <text x="40" y="346" font-weight="700">BUSVIVO.COM</text>
+    <text x="560" y="346" text-anchor="end" opacity="0.6">MADE IN SPAIN · 2026</text>
+  </g>
+</svg>
