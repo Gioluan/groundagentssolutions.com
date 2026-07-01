@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ground Agents Solutions S.L. — Sports & Travel Technology</title>
-  <meta name="description" content="Ground Agents Solutions S.L. — Group travel specialists and sports technology builders. Based in Spain since 2005.">
+  <title>Ground Agents Solutions S.L. — We Build Digital Products for Sport & Travel</title>
+  <meta name="description" content="We build the digital products that grow sports clubs, tour operators and travel businesses. AI search visibility, fan platforms, operations software and tours. On the ground since 2005.">
   <meta property="og:title" content="Ground Agents Solutions S.L.">
-  <meta property="og:description" content="Group travel experts & sports technology builders. Based in Spain since 2005.">
+  <meta property="og:description" content="Product builders for sport and travel. On the ground since 2005.">
   <meta property="og:type" content="website">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>G</text></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -542,6 +542,105 @@
     .product-link svg { width: 14px; height: 14px; transition: transform 0.3s; }
     .product-card:hover .product-link svg { transform: translateX(4px); }
 
+    /* ── CAPABILITIES ── */
+    .cap-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    .cap-card {
+      background: rgba(10, 16, 37, 0.6);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 2.25rem 2rem;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cap-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+    }
+
+    .cap-card:nth-child(1)::before { background: linear-gradient(90deg, #3b82f6, #8b5cf6); }
+    .cap-card:nth-child(2)::before { background: linear-gradient(90deg, #10b981, #34d399); }
+    .cap-card:nth-child(3)::before { background: linear-gradient(90deg, #f97316, #fb923c); }
+
+    .cap-card:hover {
+      border-color: rgba(255,255,255,0.12);
+      transform: translateY(-6px);
+      box-shadow: 0 30px 80px rgba(0,0,0,0.4);
+    }
+
+    .cap-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+      border: 1px solid var(--border);
+    }
+
+    .cap-icon svg {
+      width: 27px;
+      height: 27px;
+      stroke-width: 1.9;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .cap-card:nth-child(1) .cap-icon {
+      background: radial-gradient(circle at 32% 28%, rgba(59,130,246,0.20), rgba(59,130,246,0.04));
+      border-color: rgba(59,130,246,0.32);
+      color: #60a5fa;
+    }
+    .cap-card:nth-child(2) .cap-icon {
+      background: radial-gradient(circle at 32% 28%, rgba(16,185,129,0.20), rgba(16,185,129,0.04));
+      border-color: rgba(16,185,129,0.32);
+      color: #34d399;
+    }
+    .cap-card:nth-child(3) .cap-icon {
+      background: radial-gradient(circle at 32% 28%, rgba(249,115,22,0.20), rgba(249,115,22,0.04));
+      border-color: rgba(249,115,22,0.32);
+      color: #fb923c;
+    }
+
+    .cap-card h3 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 0.6rem;
+    }
+
+    .cap-card p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+      margin-bottom: 1.25rem;
+      font-weight: 300;
+    }
+
+    .cap-badge {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 0.35rem 0.75rem;
+      border-radius: 100px;
+      border: 1px solid var(--border);
+    }
+    .cap-card:nth-child(1) .cap-badge { color: #93c5fd; border-color: rgba(59,130,246,0.3); background: rgba(59,130,246,0.08); }
+    .cap-card:nth-child(2) .cap-badge { color: #6ee7b7; border-color: rgba(16,185,129,0.3); background: rgba(16,185,129,0.08); }
+    .cap-card:nth-child(3) .cap-badge { color: #fdba74; border-color: rgba(249,115,22,0.3); background: rgba(249,115,22,0.08); }
+
     /* ── DIVIDER ── */
     .gradient-divider {
       height: 1px;
@@ -857,10 +956,10 @@
         <span class="dot"></span>
         Based in Spain
       </div>
-      <h1 class="fade-up"><span class="gradient">Group travel</span> experts & sports technology builders</h1>
-      <p class="hero-sub fade-up">Ground Agents Solutions S.L. — specialists in group travel since 2005 and builders of the digital products that power sports clubs, tours, and unforgettable experiences.</p>
-      <a href="#products" class="hero-cta fade-up">
-        See our products
+      <h1 class="fade-up">We build the <span class="gradient">digital products</span> that grow sport, tours & travel</h1>
+      <p class="hero-sub fade-up">AI search visibility, fan and member platforms, operations software, and end-to-end tours. On the ground with international sports teams since 2005, building the tools we wished existed.</p>
+      <a href="#capabilities" class="hero-cta fade-up">
+        See what we build
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg>
       </a>
       <div class="scroll-hint">
@@ -892,11 +991,47 @@
       </div>
     </div>
 
+    <!-- CAPABILITIES -->
+    <section id="capabilities">
+      <p class="section-label fade-up">What we do</p>
+      <h2 class="section-title fade-up">What we can build with you</h2>
+      <p class="section-desc fade-up">Three ways we help sports clubs, tour operators and travel businesses grow, powered by the products we run every day.</p>
+
+      <div class="cap-grid stagger">
+        <div class="cap-card fade-up">
+          <div class="cap-icon">
+            <svg viewBox="0 0 24 24" stroke="currentColor"><path d="M12 3l1.6 4.2L18 8.8l-4.4 1.6L12 15l-1.6-4.6L6 8.8l4.4-1.6z"/><path d="M18.5 14l.9 2.3 2.3.9-2.3.9-.9 2.3-.9-2.3-2.3-.9 2.3-.9z"/></svg>
+          </div>
+          <h3>Get found in AI &amp; search</h3>
+          <p>Track and fix how your brand shows up in ChatGPT, Perplexity and Gemini, then close the gaps that send fans elsewhere.</p>
+          <span class="cap-badge">Powered by Tripcite</span>
+        </div>
+        <div class="cap-card fade-up">
+          <div class="cap-icon">
+            <svg viewBox="0 0 24 24" stroke="currentColor"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M11 18h2"/></svg>
+          </div>
+          <h3>Fan &amp; member platforms</h3>
+          <p>Apps that handle scoring, attendance, membership and tour planning, built for clubs that want to own the fan relationship.</p>
+          <span class="cap-badge">See MyCantera</span>
+        </div>
+        <div class="cap-card fade-up">
+          <div class="cap-icon">
+            <svg viewBox="0 0 24 24" stroke="currentColor"><circle cx="6" cy="19" r="2.6"/><circle cx="18" cy="5" r="2.6"/><path d="M8.6 19H16a3.4 3.4 0 0 0 0-6.8H8a3.4 3.4 0 0 1 0-6.8h7.4"/></svg>
+          </div>
+          <h3>Operations &amp; travel</h3>
+          <p>Fleet software, logistics and full group tours, run end to end so the operation just works.</p>
+          <span class="cap-badge">See BusVivo &amp; Odisea</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="gradient-divider"></div>
+
     <!-- PRODUCTS -->
     <section id="products">
       <p class="section-label fade-up">Our Products</p>
-      <h2 class="section-title fade-up">Five products, one mission</h2>
-      <p class="section-desc fade-up">Each product serves a different audience, but they all share the same belief: technology should make real-world experiences better.</p>
+      <h2 class="section-title fade-up">Products we've shipped</h2>
+      <p class="section-desc fade-up">These are live, in-market products. When a partner needs something that does not exist yet, we build it.</p>
 
       <div class="products-grid stagger">
 
@@ -999,9 +1134,9 @@
       <div class="about-grid">
         <div class="fade-up">
           <div class="about-text">
-            <p><strong>Ground Agents Solutions S.L.</strong> is a group travel and technology company based in Spain. Since 2005 we've been the on-the-ground experts for international sports teams visiting the country — organising training camps, friendly matches, and cultural tours from start to finish.</p>
+            <p><strong>Ground Agents Solutions S.L.</strong> is a travel and technology company based in Spain. Since 2005 we have been the on-the-ground experts for international sports teams visiting the country, organising training camps, friendly matches and cultural tours from start to finish.</p>
             <br>
-            <p>That hands-on experience led us to build the digital products we wished existed. Today we operate across group travel, sports club management, and consumer apps — every product born from a real problem we've lived firsthand.</p>
+            <p>That hands-on experience led us to build the digital products we wished existed, across AI search visibility, sports club management, fleet operations and travel. <strong>Today we build for our own brands and, increasingly, as a partner to clubs and operators who want to move faster.</strong></p>
           </div>
           <div class="about-highlight">
             "20 years on the ground organising tours taught us exactly what tools were missing — so we built them."
@@ -1134,7 +1269,7 @@
     "@context": "https://schema.org",
     "@type": "Organization",
     "name": "Ground Agents Solutions S.L.",
-    "description": "Group travel specialists and sports technology builders based in Spain since 2005.",
+    "description": "We build the digital products that grow sports clubs, tour operators and travel businesses. AI search visibility, fan platforms, operations software and tours. Based in Spain since 2005.",
     "url": "https://groundagentssolutions.com",
     "foundingDate": "2005",
     "address": { "@type": "PostalAddress", "addressCountry": "ES" },
