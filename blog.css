@@ -1,0 +1,70 @@
+:root{
+  --bg:#050810; --surface:#0a1025; --border:#1a2444;
+  --text:#f1f5f9; --text-muted:#8896b8; --accent:#3b82f6;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg); color:var(--text);
+  font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
+  line-height:1.7; -webkit-font-smoothing:antialiased;
+}
+a{color:inherit}
+.wrap{max-width:760px;margin:0 auto;padding:0 24px}
+
+/* top bar */
+.topbar{border-bottom:1px solid var(--border);position:sticky;top:0;background:rgba(5,8,16,.85);backdrop-filter:blur(12px);z-index:10}
+.topbar .wrap{max-width:1100px;display:flex;align-items:center;justify-content:space-between;height:64px}
+.brand{font-weight:800;letter-spacing:-.02em;text-decoration:none;font-size:15px;display:flex;align-items:center;gap:9px}
+.brand .dot{width:9px;height:9px;border-radius:50%;background:var(--accent)}
+.topnav a{color:var(--text-muted);text-decoration:none;font-size:13px;font-weight:500;margin-left:26px;transition:color .2s}
+.topnav a:hover{color:var(--text)}
+
+/* article */
+.post{padding:64px 0 40px}
+.kicker{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);font-weight:700;margin-bottom:18px}
+.post h1{font-family:'Playfair Display',serif;font-weight:800;font-size:clamp(2rem,5vw,3.1rem);line-height:1.08;letter-spacing:-.01em}
+.byline{margin-top:20px;color:var(--text-muted);font-size:13.5px}
+.byline a{color:var(--text);text-decoration:none;border-bottom:1px solid var(--border)}
+.lede{font-size:1.25rem;line-height:1.55;color:#c9d4ec;margin:32px 0 8px}
+.post h2{font-family:'Playfair Display',serif;font-weight:700;font-size:1.6rem;margin:40px 0 10px;letter-spacing:-.01em}
+.post h3{font-size:1.1rem;font-weight:700;margin:26px 0 6px}
+.post p{margin:14px 0;color:#dce3f2}
+.post ul{margin:14px 0 14px 22px;color:#dce3f2}
+.post li{margin:7px 0}
+.post strong{color:#fff}
+.post a.inline{color:#93b4ff;text-decoration:none;border-bottom:1px solid rgba(147,180,255,.35)}
+.post a.inline:hover{border-color:#93b4ff}
+
+/* product callout */
+.callout{border:1px solid var(--border);border-radius:16px;background:var(--surface);padding:22px 24px;margin:30px 0}
+.callout .k{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--text-muted);font-weight:700}
+.callout .n{font-family:'Playfair Display',serif;font-size:1.35rem;font-weight:700;margin:6px 0 4px}
+.callout a{color:#93b4ff;text-decoration:none;font-size:14px;font-weight:600}
+
+/* faq */
+.faq{margin-top:44px;border-top:1px solid var(--border);padding-top:28px}
+.faq h2{margin-top:0}
+.faq .q{font-weight:700;color:#fff;margin-top:20px}
+.faq .a{color:#c9d4ec;margin-top:4px}
+
+/* related */
+.more{margin-top:48px;border-top:1px solid var(--border);padding-top:24px;display:flex;flex-wrap:wrap;gap:10px}
+.more a{border:1px solid var(--border);border-radius:999px;padding:8px 15px;font-size:13px;color:var(--text-muted);text-decoration:none;transition:all .2s}
+.more a:hover{color:var(--text);border-color:#2a3a66}
+
+/* blog index */
+.hero{padding:70px 0 26px}
+.hero h1{font-family:'Playfair Display',serif;font-weight:800;font-size:clamp(2.2rem,6vw,3.4rem);letter-spacing:-.01em}
+.hero p{color:var(--text-muted);font-size:1.05rem;margin-top:14px;max-width:56ch}
+.postlist{padding:10px 0 70px}
+.postlink{display:block;text-decoration:none;color:inherit;border-top:1px solid var(--border);padding:22px 0;transition:padding .25s}
+.postlink:hover{padding-left:8px}
+.postlink .c{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);font-weight:700}
+.postlink h2{font-family:'Playfair Display',serif;font-weight:700;font-size:1.5rem;margin:6px 0;letter-spacing:-.01em}
+.postlink p{color:var(--text-muted);font-size:.95rem}
+
+footer.site{border-top:1px solid var(--border);padding:34px 0;color:var(--text-muted);font-size:13px}
+footer.site .wrap{max-width:1100px;display:flex;flex-wrap:wrap;gap:8px 20px;justify-content:space-between}
+footer.site a{color:var(--text-muted);text-decoration:none}
+footer.site a:hover{color:var(--text)}
