@@ -218,9 +218,16 @@ ${faqs}
 `;
 }
 
+// Hand-written posts (case studies etc.) that are not generated but must appear
+// in the index. The full HTML for these lives as its own file in /blog.
+const EXTRA = [
+  { slug: "how-we-built-developpe-danza", category: "Case study", title: "Building and Positioning Développé Danza Online", description: "A real client project: a fast website, province-wide local SEO and generative engine optimization for a new dance school in Benicàssim." },
+];
+
 function renderIndex() {
   const all = [
     { slug: FOUNDER.slug, category: FOUNDER.category, title: FOUNDER.title, description: FOUNDER.description },
+    ...EXTRA,
     ...POSTS.map((p) => ({ slug: p.slug, category: p.category, title: p.title, description: p.description })),
   ];
   const items = all.map((p) => `      <a class="postlink" href="/blog/${p.slug}.html">
