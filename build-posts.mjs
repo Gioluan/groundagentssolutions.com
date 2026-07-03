@@ -148,7 +148,7 @@ function articleSchema(p) {
   return JSON.stringify({
     "@context": "https://schema.org", "@type": "Article",
     headline: p.title, description: p.description, datePublished: DATE, dateModified: DATE,
-    author: { "@type": "Person", name: "Juan Sánchez", "@id": `${SITE}/#juan-sanchez` },
+    author: { "@type": "Person", name: "Juan B. Sánchez", "@id": `${SITE}/#juan-sanchez` },
     publisher: { "@type": "Organization", name: "Ground Agents Solutions S.L.", url: SITE },
     mainEntityOfPage: `${SITE}/blog/${p.slug}.html`,
   });
@@ -188,7 +188,7 @@ function render(p) {
 <article class="post"><div class="wrap">
   <div class="kicker">${p.category}</div>
   <h1>${esc(p.title)}</h1>
-  <div class="byline">By <a href="/blog/${FOUNDER.slug}.html">Juan Sánchez</a> · Founder, Ground Agents Solutions · 3 July 2026</div>
+  <div class="byline">By <a href="/blog/${FOUNDER.slug}.html">Juan B. Sánchez</a> · Founder, Ground Agents Solutions · 3 July 2026</div>
   <p class="lede">${esc(p.lede)}</p>
 ${sections}
 
