@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Ground Agents — Tech Docs</title>
+  <meta name="description" content="Confidential technical due-diligence.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>G</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css">
+
+  <style>
+    :root {
+      --bg: #050810;
+      --surface: #0a1025;
+      --surface-2: #111833;
+      --border: #1a2444;
+      --text: #f1f5f9;
+      --text-muted: #8896b8;
+      --accent: #3b82f6;
+      --accent-2: #60a5fa;
+      --danger: #ef4444;
+    }
+
+    body { font-family: 'Inter', -apple-system, sans-serif; }
+
+    /* ── PASSWORD GATE ── */
+    .gate {
+      position: fixed; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      background: radial-gradient(ellipse at top, #0a1025 0%, #050810 70%);
+      z-index: 100;
+      padding: 24px;
+    }
+    .gate-card {
+      width: 100%; max-width: 420px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 36px 32px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+      color: var(--text);
+    }
+    .gate-card h1 {
+      font-size: 22px; font-weight: 700;
+      margin: 0 0 6px;
+    }
+    .gate-card p {
+      font-size: 14px; color: var(--text-muted);
+      margin: 0 0 24px;
+    }
+    .gate-input {
+      width: 100%;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 14px 16px;
+      border-radius: 10px;
+      font-size: 15px;
+      font-family: inherit;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .gate-input:focus { border-color: var(--accent); }
+    .gate-btn {
+      width: 100%;
+      margin-top: 12px;
+      background: var(--accent);
+      color: white;
+      border: none;
+      padding: 14px;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .gate-btn:hover { background: var(--accent-2); }
+    .gate-error {
+      margin-top: 12px;
+      font-size: 13px;
+      color: var(--danger);
+      min-height: 18px;
+    }
+    .gate-foot {
+      margin-top: 18px;
+      font-size: 12px;
+      color: var(--text-muted);
+      text-align: center;
+    }
+
+    /* Hide docsify until password is correct */
+    #app { display: none; }
+    body.unlocked #app { display: block; }
+    body.unlocked .gate { display: none; }
+
+    /* Lock button overlay once unlocked */
+    .lock-btn {
+      position: fixed; top: 12px; right: 16px;
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-family: inherit;
+      cursor: pointer;
+      z-index: 50;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    }
+    body:not(.unlocked) .lock-btn { display: none; }
+
+    /* Mermaid containers */
+    .mermaid {
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      overflow: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── PASSWORD GATE ── -->
+  <div class="gate" id="gate">
+    <form class="gate-card" id="gateForm" autocomplete="off">
+      <h1>Ground Agents — Technical Docs</h1>
+      <p>Confidential. Enter the access code to continue.</p>
+      <input
+        type="password"
+        class="gate-input"
+        id="gateInput"
+        placeholder="Access code"
+        autofocus
+        autocomplete="current-password"
+      />
+      <button class="gate-btn" type="submit">Unlock</button>
+      <div class="gate-error" id="gateError"></div>
+      <div class="gate-foot">groundagentssolutions.com</div>
+    </form>
+  </div>
+
+  <button class="lock-btn" id="lockBtn">Lock</button>
+
+  <!-- ── DOCSIFY ── -->
+  <div id="app">Loading…</div>
+
+  <script>
+    // Default password: groundagents2026
+    // To change: compute SHA-256 of new password and replace PASSWORD_HASH below.
+    // Quick way (Node):  node -e "console.log(require('crypto').createHash('sha256').update('YOUR_PASS').digest('hex'))"
+    const PASSWORD_HASH = '58d3ad23ed216beabef6aa10e60edb01ab36f91c24b3e6df9f4186bae10d5c3e';
+    const SESSION_KEY = 'gas_techdocs_unlocked_v1';
+
+    const gate = document.getElementById('gate');
+    const form = document.getElementById('gateForm');
+    const input = document.getElementById('gateInput');
+    const errorEl = document.getElementById('gateError');
+    const lockBtn = document.getElementById('lockBtn');
+
+    async function sha256(text) {
+      const buf = new TextEncoder().encode(text);
+      const hash = await crypto.subtle.digest('SHA-256', buf);
+      return Array.from(new Uint8Array(hash))
+        .map(b => b.toString(16).padStart(2, '0'))
+        .join('');
+    }
+
+    function reveal() {
+      document.body.classList.add('unlocked');
+    }
+
+    function lock() {
+      sessionStorage.removeItem(SESSION_KEY);
+      location.reload();
+    }
+
+    if (sessionStorage.getItem(SESSION_KEY) === '1') {
+      reveal();
+    }
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      errorEl.textContent = '';
+      const candidate = input.value.trim();
+      if (!candidate) return;
+      const hash = await sha256(candidate);
+      if (hash === PASSWORD_HASH) {
+        sessionStorage.setItem(SESSION_KEY, '1');
+        reveal();
+      } else {
+        errorEl.textContent = 'Wrong access code.';
+        input.value = '';
+        input.focus();
+      }
+    });
+
+    lockBtn.addEventListener('click', lock);
+
+    // ── Docsify config ──
+    window.$docsify = {
+      name: 'Ground Agents',
+      nameLink: '#/',
+      repo: false,
+      loadSidebar: true,
+      subMaxLevel: 3,
+      auto2top: true,
+      homepage: 'README.md',
+      notFoundPage: false,
+      search: {
+        placeholder: 'Search…',
+        noData: 'No results.',
+        depth: 3,
+      },
+      markdown: {
+        renderer: {
+          code: function (code, lang) {
+            if (lang === 'mermaid') {
+              return '<div class="mermaid">' + code + '</div>';
+            }
+            return this.origin.code.apply(this, arguments);
+          }
+        }
+      },
+      plugins: [
+        function (hook) {
+          hook.doneEach(function () {
+            if (window.mermaid && document.body.classList.contains('unlocked')) {
+              try {
+                mermaid.run({ querySelector: '.mermaid' });
+              } catch (e) { /* mermaid not ready */ }
+            }
+          });
+        }
+      ]
+    };
+  </script>
+
+  <!-- Docsify core + plugins -->
+  <script src="https://cdn.jsdelivr.net/npm/docsify@4"></script>
+  <script src="https://cdn.jsdelivr.net/npm/docsify@4/lib/plugins/search.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/docsify@4/lib/plugins/zoom-image.min.js"></script>
+
+  <!-- Mermaid for diagrams -->
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+  <script>
+    mermaid.initialize({
+      startOnLoad: false,
+      theme: 'default',
+      flowchart: { htmlLabels: true, useMaxWidth: true }
+    });
+  </script>
+
+</body>
+</html>

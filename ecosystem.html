@@ -444,14 +444,18 @@ flowchart TB
         .join('');
     }
 
+    mermaid.initialize({
+      startOnLoad: false,
+      theme: 'default',
+      flowchart: { htmlLabels: true, useMaxWidth: false }
+    });
+
     function reveal() {
       gate.style.display = 'none';
       main.classList.add('visible');
-      mermaid.initialize({
-        startOnLoad: true,
-        theme: 'default',
-        flowchart: { htmlLabels: true, useMaxWidth: false }
-      });
+      // Render the diagram now that #main is visible. Mermaid can't lay out
+      // a flowchart inside a display:none container, so run it on reveal.
+      mermaid.run({ querySelector: '.mermaid' });
     }
 
     function lock() {
